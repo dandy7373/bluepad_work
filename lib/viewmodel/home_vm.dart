@@ -13,7 +13,6 @@ class HomeViewModel extends ChangeNotifier{
   int page=1;
 
   Future<void> getImages()async{
-    print('bhvasgvahgdvah');
 
     Response response=await getData(page);
     if(response.statusCode==200){
@@ -23,7 +22,6 @@ class HomeViewModel extends ChangeNotifier{
       });
       page+=1;
       loading=false;
-      print(this.images);
       notifyListeners();
     }
   }

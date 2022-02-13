@@ -33,7 +33,7 @@ class _SigninState extends State<Signin> {
     if(context.watch<SigninViewModel>().loggedin){
       Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
     }
-    print('suxr');
+    
     return Scaffold(
       body:SafeArea(
         child: Column(
@@ -94,13 +94,8 @@ class _SigninState extends State<Signin> {
           ),
         ),
         InkWell(
-          onDoubleTap: ()async{
-            print('000');
-          },
           onTap: ()async{
-            print('yes');
             
-            print(Provider.of<SigninViewModel>(context,listen: false).success);
             await Provider.of<SigninViewModel>(context,listen:false).signin();//Prototyping the actual Signin process
 
             if(Provider.of<SigninViewModel>(context,listen: false).success){
