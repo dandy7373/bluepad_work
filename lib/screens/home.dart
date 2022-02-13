@@ -21,6 +21,7 @@ class _HomeState extends State<Home> {
     // TODO: implement initState
     super.initState();
     context.read<HomeViewModel>().getImages();
+    context.read<HomeViewModel>().getuserData();
 
     _scrollController.addListener(() async{
       if(_scrollController.position.pixels==_scrollController.position.maxScrollExtent){
@@ -45,36 +46,47 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: SafeArea(
-        child: Container(
-          width: screenSize.width,
-          height: screenSize.height*0.85,
-          child: ListView.separated(
-            separatorBuilder: (context, index) => Container(width: screenSize.width*0.7,child: Divider(thickness: 1,color: Colors.indigo,),),
-            controller: _scrollController,
-            itemCount: context.watch<HomeViewModel>().images.length+1,
-            itemBuilder: (context,index){
-              if(index==context.watch<HomeViewModel>().images.length){
-                return const Center(
-                  child: CupertinoActivityIndicator(),
-                );
-              }
-              return Container(
-                width: screenSize.width*0.95,
-                height: screenSize.height*0.20,
-                child: Column(
-                  children: [
-                    Text(context.watch<HomeViewModel>().images[index].author),
-                    Container(
-                      height: screenSize.height*0.17,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(image: Image.network(context.watch<HomeViewModel>().images[index].imagePath).image)
-                      ),
-                    )
-                  ],
-                ),
-              );
-            },
-          ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom:10.0),
+              child: Text('USER: ${context.watch<HomeViewModel>().user['email']}',style: TextStyle(
+                      color: Colors.indigo,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17),),
+            ),
+            Container(
+              width: screenSize.width,
+              height: screenSize.height*0.85,
+              child: ListView.separated(
+                separatorBuilder: (context, index) => Container(width: screenSize.width*0.7,child: Divider(thickness: 1,color: Colors.indigo,),),
+                controller: _scrollController,
+                itemCount: context.watch<HomeViewModel>().images.length+1,
+                itemBuilder: (context,index){
+                  if(index==context.watch<HomeViewModel>().images.length){
+                    return const Center(
+                      child: CupertinoActivityIndicator(),
+                    );
+                  }
+                  return Container(
+                    width: screenSize.width*0.95,
+                    height: screenSize.height*0.20,
+                    child: Column(
+                      children: [
+                        Text(context.watch<HomeViewModel>().images[index].author),
+                        Container(
+                          height: screenSize.height*0.17,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(image: Image.network(context.watch<HomeViewModel>().images[index].imagePath).image)
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         )
       ),
     );

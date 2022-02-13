@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -6,13 +8,14 @@ class SigninViewModel extends ChangeNotifier{
   bool loggedin=false;
   bool wait=true;
 
-  Future<void> setCreds()async{
+  Future<void> setCreds(String data)async{
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('loggedin', true);
+    await prefs.setString('userdata', data);
   }
 
-  Future<void> signin()async{
-    await setCreds();
+  Future<void> signin(Map<String,dynamic> data)async{
+    await setCreds(json.encode(data));
     this.success=true;
     notifyListeners();
   }

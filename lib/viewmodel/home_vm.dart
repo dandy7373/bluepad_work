@@ -11,7 +11,14 @@ class HomeViewModel extends ChangeNotifier{
   List<ImageModel> images=[];
   bool loading=true;
   int page=1;
+  Map<String,dynamic> user={'email':'loading'};
 
+  Future<void> getuserData()async{
+    final prefs = await SharedPreferences.getInstance();
+    final String? userdataEnc=prefs.getString('userdata');
+    user=json.decode(userdataEnc.toString());
+    notifyListeners();
+  }
   Future<void> getImages()async{
 
     Response response=await getData(page);
@@ -33,6 +40,7 @@ class HomeViewModel extends ChangeNotifier{
   Future<void> _logoutprivate()async{
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('loggedin');
+    await prefs.remove('userdata');
   }
 
 }
