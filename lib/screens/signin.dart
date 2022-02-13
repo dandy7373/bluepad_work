@@ -129,8 +129,10 @@ class _SigninState extends State<Signin> {
                   if (email!.text == 'bluepad@gmail.com' &&
                       password!.text == '123') {
                     await Provider.of<SigninViewModel>(context, listen: false)
-                        .signin({'email' :'bluepad@gmail.com' ,
-                      'password' : '123'}); //Prototyping the actual Signin process
+                        .signin({
+                      'email': 'bluepad@gmail.com',
+                      'password': '123'
+                    }); //Prototyping the actual Signin process
 
                     if (Provider.of<SigninViewModel>(context, listen: false)
                         .success) {
